@@ -1,0 +1,44 @@
+<table class="table table-bordered table-hover">
+    <thead class="bg-gray-light">
+        <tr>
+            <th class="text-center" style="width: 10%;"> ID </th>
+            <th class="text-center" style="width: 20%"> GROUP </th>
+            <th class="text-center" style="width: 30%"> TITLE </th>
+            <th class="text-center" style="width: 10%"> TABS </th>
+            <th class="text-center" style="width: 10%"> STATUS </th>
+            <th class="text-center" style="width: 10%"> ACTION </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach( $webdata->gender_retrieve_all_panel_details($GenderPanel->panel_id) as $key => $value)
+        <tr>
+            <td class="text-center" style="vertical-align: middle;"><b>{{ ($key + 1) }}</b></td>
+            <td class="text-center" style="vertical-align: middle;">
+                {{ $value->posts->panelInfo->panel_name }}
+            </td>
+            <td style="vertical-align: middle;">{{ $value->posts->post_subject }}</td>
+            <td class="text-center" style="vertical-align: middle;">
+                <i class="{{ ($value->posts->post_tab == 1) ? 'fa fa-toggle-on text-orange' : 'fa fa-toggle-off text-red' }}" id="toggletab{{ $value->detail_id }}" onclick="return updateStatus(this.id,'{{ route('gender.route',['path' => $path, 'action' => 'gender-toggle-announcement-tab', 'id'
+                => Crypt::encrypt($value->detail_id) ]) }}')" style="font-size: 25px; cursor: pointer;"></i>
+            </td>
+            <td class="text-center" style="vertical-align: middle;">
+                <i class="{{ ($value->status == 1) ? 'fa fa-toggle-on text-orange' : 'fa fa-toggle-off text-red' }}" id="togglestatus{{ $value->detail_id }}" onclick="return updateStatus(this.id,'{{ route('gender.route',['path' => $path, 'action' => 'gender-toggle-announcement', 'id'
+                => Crypt::encrypt($value->detail_id) ]) }}')" style="font-size: 25px; cursor: pointer;"></i>
+            </td>
+            <td class="text-center" style="vertical-align: middle;">
+                <a href="{{ route('gender.route',['path' => $path,'action' => 'gender-edit-calendar','id' => encrypt($value->detail_id)]) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                <a href="{{ route('gender.route',['path' => $path,'action' => 'gender-delete-calendar','id' => encrypt($value->detail_id)]) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this row?')"><i class="fa fa-trash"></i></a>
+            </td>
+        </tr>
+        @endforeach
+        <tr>
+            <td class="text-center" colspan="6">
+            @if(count($webdata->gender_retrieve_all_panel_details($GenderPanel->panel_id)) == 0)
+                No result's found!, Try to <a href="#newpost" data-toggle="tab">Add New Calendar</a>.
+            @else
+                {{ $webdata->gender_retrieve_all_panel_details($GenderPanel->panel_id)->links('pages.admin.gender.includes.genderpagination') }}
+            @endif
+            </td>
+        </tr>
+    </tbody>
+</table>

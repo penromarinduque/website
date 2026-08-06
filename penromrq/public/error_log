@@ -1,0 +1,2 @@
+[03-Apr-2020 18:56:15 Asia/Manila] PHP Fatal error:  Trait 'App\Http\Traits\Settings\UploaderTrait' not found in /home/xibnxfgl0szt/public_penro_admin/app/Model/Layouts/panelDetailsFrameset.php on line 12
+[04-Apr-2020 16:50:50 Asia/Manila] PHP Fatal error:  Trait 'App\Http\Traits\Settings\UploaderTrait' not found in /home/xibnxfgl0szt/public_penro_admin/app/Model/Layouts/panelDetailsFrameset.php on line 12
